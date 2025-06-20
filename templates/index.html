@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>File-Storing Blockchain</title>
+</head>
+<body>
+  <h2>Upload a File</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" required>
+    <button type="submit">Upload & Add to Blockchain</button>
+  </form>
+
+  <h2>Blockchain</h2>
+  {% for block in chain %}
+    <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+      <p><strong>Index:</strong> {{ block.index }}</p>
+      <p><strong>Filename:</strong> {{ block.filename }}</p>
+
+      {% if block.filename != "Genesis" %}
+        <p>
+          <a href="{{ url_for('download_file', filename=block.filename) }}" target="_blank">
+            ⬇️ Download
+          </a>
+        </p>
+      {% endif %}
+
+      <p><strong>File Hash:</strong> {{ block.file_hash }}</p>
+      <p><strong>Timestamp:</strong> {{ block.timestamp }}</p>
+      <p><strong>Hash:</strong> {{ block.hash }}</p>
+      <p><strong>Previous Hash:</strong> {{ block.previous_hash }}</p>
+    </div>
+  {% endfor %}
+</body>
+</html>
+
+
+
